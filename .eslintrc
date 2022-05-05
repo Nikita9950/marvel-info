@@ -1,0 +1,11 @@
+{
+  "extends": ["react-app", "prettier"],
+  "rules": {
+    "prettier/prettier": ["error", {
+      "doubleQuote": true,
+      "semi": true
+    }],
+    "quotes": "off"
+  },
+  "plugins": ["prettier"]
+}
