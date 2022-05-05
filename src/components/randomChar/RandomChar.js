@@ -28,6 +28,7 @@ class RandomChar extends React.Component {
   onCharLoading = () => {
     this.setState({
       loading: true,
+      error: false,
     });
   };
 

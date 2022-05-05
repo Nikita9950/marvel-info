@@ -50,7 +50,7 @@ const CharList = (props) => {
   };
 
   const renderItems = (arr) => {
-    const items = arr.map((item, i) => {
+    const items = arr.map((item) => {
       let imgStyle = { objectFit: "cover" };
       if (
         item.thumbnail ===
