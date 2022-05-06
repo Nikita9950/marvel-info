@@ -4,53 +4,35 @@ import "./charInfo.scss";
 import Spinner from "../spinner/Spinner";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Skeleton from "../skeleton/Skeleton";
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 
 const CharInfo = (props) => {
   const { charId } = props;
 
   const [char, setChar] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
-  const marvelService = new MarvelService();
+  const { loading, error, getCharacter } = useMarvelService();
 
   useEffect(() => {
     updateChar();
-    console.log(props);
   }, [charId]);
 
   const updateChar = () => {
     if (!charId) {
       return;
     }
-    onCharLoading();
 
-    marvelService
-      .getCharacter(charId)
-      .then((res) => onCharLoaded(res))
-      .catch(onError);
+    getCharacter(charId).then((res) => onCharLoaded(res));
   };
 
   const onCharLoaded = (char) => {
     setChar(char);
-    setLoading((loading) => false);
-  };
-
-  const onCharLoading = () => {
-    setLoading((loading) => true);
-  };
-
-  const onError = () => {
-    setLoading((loading) => false);
-    setError((error) => true);
   };
 
   const skeleton = char || loading || error ? null : <Skeleton />;
   const errorMessage = error ? <ErrorMessage /> : null;
   const spinner = loading ? <Spinner /> : null;
   const content = !(loading || error || !char) ? <View char={char} /> : null;
-
   return (
     <div className="char__info">
       {skeleton}
