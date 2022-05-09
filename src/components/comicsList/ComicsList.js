@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./comicsList.scss";
 import useMarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/Spinner";
@@ -35,6 +36,7 @@ const ComicsList = () => {
 
   const renderItems = (arr) => {
     const items = arr.map((item) => {
+      const { id, thumbnail, title, price } = item;
       let imgStyle = { objectFit: "cover" };
       if (
         item.thumbnail ===
@@ -42,19 +44,18 @@ const ComicsList = () => {
       ) {
         imgStyle = { objectFit: "unset" };
       }
-      const price = item.price === "0" ? "not available" : `${item.price} $`;
 
       return (
-        <li className="comics__item" key={item.id}>
-          <a href="#">
+        <li className="comics__item" key={id}>
+          <Link to={`/comics/${id}`}>
             <img
-              src={item.thumbnail}
+              src={thumbnail}
               alt="ultimate war"
               className="comics__item-img"
             />
-            <div className="comics__item-name">{item.title}</div>
+            <div className="comics__item-name">{title}</div>
             <div className="comics__item-price">{price}</div>
-          </a>
+          </Link>
         </li>
       );
     });

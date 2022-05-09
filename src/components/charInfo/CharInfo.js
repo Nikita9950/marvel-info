@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./charInfo.scss";
 import Spinner from "../spinner/Spinner";
@@ -45,6 +46,13 @@ const CharInfo = (props) => {
 
 function View({ char }) {
   const { name, description, thumbnail, homepage, wiki, comics } = char;
+
+  const getIdFromUrl = (url) => {
+    const params = url.split("/");
+    const id = params[params.length - 1];
+    return id;
+  };
+
   return (
     <>
       <div className="char__basics">
@@ -66,9 +74,12 @@ function View({ char }) {
       <ul className="char__comics-list">
         {comics.length > 0 ? null : "There is no comics with this character"}
         {comics.map((item, i) => {
+          const comicsId = getIdFromUrl(item.resourceURI);
           return (
             <li key={i} className="char__comics-item">
-              {item.name}
+              <Link to={`/comics/${comicsId}`} style={{ display: "block" }}>
+                {item.name}
+              </Link>
             </li>
           );
         })}
