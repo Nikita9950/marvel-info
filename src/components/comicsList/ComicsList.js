@@ -37,7 +37,6 @@ const ComicsList = () => {
   const renderItems = (arr) => {
     const items = arr.map((item) => {
       const { id, thumbnail, title, price } = item;
-
       let imgStyle = { objectFit: "cover" };
       if (
         item.thumbnail ===
